@@ -1,0 +1,10 @@
+--- linux-orangepi-ae9e974d3e19f460b6397bfe8f0f1417a073ce05/drivers/media/platform/ky/vpu_x1/mvx_driver.c	2025-03-18 02:29:27.000000000 +0000
++++ x/drivers/media/platform/ky/vpu_x1/mvx_driver.c	2025-04-24 17:34:48.178927120 +0000
+@@ -39,6 +39,7 @@
+ MODULE_LICENSE("GPL");
+ MODULE_AUTHOR("ARMChina");
+ MODULE_DESCRIPTION("Tiube VPU Driver.");
++MODULE_IMPORT_NS(DMA_BUF);
+ 
+ static int __init mvx_init(void)
+ {

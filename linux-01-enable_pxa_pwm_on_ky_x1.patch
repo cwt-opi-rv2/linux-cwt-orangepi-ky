@@ -1,0 +1,11 @@
+--- linux-orangepi-ae9e974d3e19f460b6397bfe8f0f1417a073ce05/drivers/pwm/Kconfig	2025-03-18 02:29:27.000000000 +0000
++++ x/drivers/pwm/Kconfig	2025-04-24 17:32:01.565568160 +0000
+@@ -464,7 +464,7 @@
+ 
+ config PWM_PXA
+ 	tristate "PXA PWM support"
+-	depends on ARCH_PXA || ARCH_MMP || COMPILE_TEST
++	depends on ARCH_PXA || ARCH_MMP || SOC_KY_X1
+ 	depends on HAS_IOMEM
+ 	help
+ 	  Generic PWM framework driver for PXA.
