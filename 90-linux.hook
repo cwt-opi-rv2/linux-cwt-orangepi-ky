@@ -2,10 +2,10 @@
 Type = File
 Operation = Install
 Operation = Upgrade
-Target = boot/vmlinux
+Target = boot/vmlinuz-6.6.75-cwt1-v6.6.ky-2
 Target = usr/lib/initcpio/*
 
 [Action]
 Description = Updating linux initcpios...
 When = PostTransaction
-Exec = /bin/sh -c '/usr/bin/mkinitcpio -p linux -k 6.6.75-cwt1-v6.6.ky-1 && mkimage -A riscv -O linux -T ramdisk -C gzip -n uInitrd -d /boot/initramfs-linux.img /boot/uInitrd.img'
+Exec = /bin/sh -c 'KVER=6.6.75-cwt1-v6.6.ky-2 && /usr/bin/mkinitcpio -p linux -k $KVER && ln -sf vmlinuz-$KVER /boot/vmlinuz && ln -sf initramfs.img-$KVER /boot/initramfs.img'

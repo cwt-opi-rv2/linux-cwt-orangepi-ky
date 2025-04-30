@@ -4,7 +4,7 @@ pkgbase=linux-cwt-6.6-orangepi
 _variant=cwt
 pkgver=6.6.ky
 epoch=1 #Based on cwt image version
-pkgrel=1
+pkgrel=2
 _desc='Linux 6.6.x (-cwt) for Orange Pi RV2 Board'
 url='https://github.com/orangepi-xunlong/linux-orangepi'
 arch=(riscv64)
@@ -46,9 +46,9 @@ b2sums=('e924a058b8ef8c8657efa3be3db98869126fb149035318e15ff046927c50d9d6f4f5c8c
         '41d7640ccbee16bf5a6b05fc465372a34f41d8f98add3ba74a217455bb1f5c14819a7f83655c91be54e3b161dbc646f55d9c13ca764bf686d8add66c4fa4db37'
         'be2307f42a9fd0a36b86d2cb0b9cf3f7520954479b7db7d4287bf41bf34811f7e140b6a74ce49fe355e72d7401e07d052d3362dab418c0f0d787c0decdf8a992'
         '195dde44b44b153741c7d8d115924bf3cb96ed22d84f46c018c24000bf8ad6e6b8895715fd0f4e789db58a7795a5bfdad23230755b7e9b3207adcfbb62bcc37c'
-        'dc21d1ec42982d48b246e7f02acfa8d0fe3a8c3a24a419effdf8343db0a47d3604637d3457a2f79a11aaacc284b6e1a3fc85b3a45a803cae53ff8e4a5fd2a9f8'
-        '94e3233dc32c9dfbaaad80a4a2c31163f0f4e8f67508d0fbe268742f856bbba81c0c6f56fb2c9f58370b9d0c9b5f55d47e38198b66f35f521b961e5b8eb3c5e3'
-        '74c84ee4801fdd44aa1341e9c143d2b9c85cae9cd9e6865b2ae46444817f17058f82e1336ea9672b0324e69c0ab8f980c1e595f7824043dfa6c30e28e5dd6095')
+        '46dae3557ae1c1228d0d743ea1740cf587db9f654cab2c78f6c4c5307a770be0d904013f7adf730e63d92cd818495baf84cb89eeb4f4570d75ea23813fac52e0'
+        'eed27d110e5a5dfb56c6b94ea62f7d9b3935d63f968b4c2788e8354180ae96e3e983832f92caa3b8b7503b4db2a3b74d258a82927c1eae9d336142086eab0dfb'
+        '81109f76a43383b03707cf9aff154a0324624c45728615d91f3ce286dd923455bde0c4cb249330ed1ac32be5779534627b7f5bde31563e76df3c68f4a56a603d')
 
 prepare() {
 	cd $_srcname
@@ -103,7 +103,7 @@ build() {
 
 _package() {
 	pkgdesc="The $_desc kernel and modules"
-	depends=(coreutils kmod mkinitcpio uboot-tools ky_x1-firmware)
+	depends=(coreutils kmod mkinitcpio ky_x1-firmware)
 	optdepends=('wireless-regdb: to set the correct wireless channels of your country'
 		'linux-firmware: firmware images needed for some devices')
 	provides=("linux=${pkgver}" "WIREGUARD-MODULE")
@@ -114,8 +114,9 @@ _package() {
 	local modulesdir="$pkgdir/usr/lib/modules/$kernver"
 
 	echo "Installing boot image..."
-	install -Dm644 "arch/riscv/boot/Image" "$modulesdir/vmlinux"
-	install -Dm644 "arch/riscv/boot/Image" "$pkgdir/boot/vmlinux"
+	install -Dm644 "arch/riscv/boot/Image.gz" "$modulesdir/vmlinuz"
+	install -Dm644 "arch/riscv/boot/Image.gz" "$pkgdir/boot/vmlinuz-$kernver"
+	install -Dm644 "System.map" "$pkgdir/boot/System.map-$kernver"
 
 	echo "Installing modules..."
 	make -j $(nproc) ARCH=riscv INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
