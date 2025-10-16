@@ -4,7 +4,7 @@ pkgbase=linux-cwt-6.6-orangepi
 _variant=cwt
 pkgver=6.6.ky
 epoch=1 #Based on cwt image version
-pkgrel=2
+pkgrel=3
 _desc='Linux 6.6.x (-cwt) for Orange Pi RV2 Board'
 url='https://github.com/orangepi-xunlong/linux-orangepi'
 arch=(riscv64)
@@ -16,6 +16,8 @@ _srcname="linux-orangepi-${_commit}"
 source=("${_srcname}.tar.gz::https://github.com/orangepi-xunlong/linux-orangepi/archive/${_commit}.tar.gz"
 	'linux-01-enable_pxa_pwm_on_ky_x1.patch'
 	'linux-02-add_DMA_BUF_ns_import_to_amvx.patch'
+	'linux-03-enable-ky_x1-clocksource.patch'
+	'linux-04-fix-timer-ky_x1-conflict-types.patch'
 	'https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.6.63-64.xz'
 	'https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.6.64-65.xz'
 	'https://cdn.kernel.org/pub/linux/kernel/v6.x/incr/patch-6.6.65-66.xz'
@@ -34,6 +36,8 @@ source=("${_srcname}.tar.gz::https://github.com/orangepi-xunlong/linux-orangepi/
 b2sums=('e924a058b8ef8c8657efa3be3db98869126fb149035318e15ff046927c50d9d6f4f5c8cb570197974ca713affdc8f960fff42970895e38e9da136f9711af94ac'
         '5baf70ff6c10d8499c90572a5ea68e4759faa6a3b9924cf09f4dd469340b3c1d9f2dacc26a1b8d5b0bd518d5ed542cb84dbcf6a0e195205ad5b167580fe0203c'
         'd305273d0efd17979d00658dd1d89de54b18f379cebdf46e04bafd2a335a971433069eea89daa3fa19f82daa773592a62cd300c6c8fe26e66f34648f4d609cd6'
+        'e6e155e1b948cea431f3988ee51a31287d35e3c503307119968b69a122e6c19ccab1eab57e697ed1e9cd142ddb8351e96e7c326dc10978ac112509ff8723277c'
+        'e1b279543cd644ada4f22f0a19a8a184055ec9676d2f17953b7f2001c4ec6f01df7af420366c7086a0522155ee0437a8d1334930bdab26634a405335d2c77a23'
         'fbac780711077fcf254ca6f46903ff5c958b0fd119130f3660b53283791a7a9e40060077cfe1a9a0436f1e649e61159e0352afe44a43c9d6b17c262a80e8738f'
         '5aa7ed4a8f289fe844f53f1178c0147749ab4a7471010291f4aa75cfdd7ce1361487f56d08c6f7612bda57a7a90fcd9516c4bccc79d831c0ef92e401ff5f4bab'
         '1363c98dc5ab59e87dc6c713cca4fbee5588f80e87544dfe2e6f916fcfd6c71706553f6de0be762154a3e92230d8671940fed941e031e03c867b86d2236318dc'
@@ -46,9 +50,9 @@ b2sums=('e924a058b8ef8c8657efa3be3db98869126fb149035318e15ff046927c50d9d6f4f5c8c
         '41d7640ccbee16bf5a6b05fc465372a34f41d8f98add3ba74a217455bb1f5c14819a7f83655c91be54e3b161dbc646f55d9c13ca764bf686d8add66c4fa4db37'
         'be2307f42a9fd0a36b86d2cb0b9cf3f7520954479b7db7d4287bf41bf34811f7e140b6a74ce49fe355e72d7401e07d052d3362dab418c0f0d787c0decdf8a992'
         '195dde44b44b153741c7d8d115924bf3cb96ed22d84f46c018c24000bf8ad6e6b8895715fd0f4e789db58a7795a5bfdad23230755b7e9b3207adcfbb62bcc37c'
-        '46dae3557ae1c1228d0d743ea1740cf587db9f654cab2c78f6c4c5307a770be0d904013f7adf730e63d92cd818495baf84cb89eeb4f4570d75ea23813fac52e0'
-        'eed27d110e5a5dfb56c6b94ea62f7d9b3935d63f968b4c2788e8354180ae96e3e983832f92caa3b8b7503b4db2a3b74d258a82927c1eae9d336142086eab0dfb'
-        '81109f76a43383b03707cf9aff154a0324624c45728615d91f3ce286dd923455bde0c4cb249330ed1ac32be5779534627b7f5bde31563e76df3c68f4a56a603d')
+        '9e90fd0d9a99927682a09563e0293e8c9d2454d9ddc0bdbb6444c5befab56d20b78d5ea932df00d87f58f895957cc42a1dfeda837488a1c2aba08bd225f3b5ea'
+        '9409ba7baad96bcebfc926128ac1cd9e04914d3c433ee4f1180bd4d5826c8938e61208504750d577e5c416b6e33ad60f06068725287cc3dc6e6752777804f1f4'
+        '93285df515c2dd93a9d178ee3c3da4fbf09834c25750c0cd0c9c244045510a2130d77e283105c03e8dbe27fbc96f83fed0adc390c06750e788cb89d3e3361bc2')
 
 prepare() {
 	cd $_srcname

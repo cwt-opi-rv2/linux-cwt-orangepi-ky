@@ -1,0 +1,22 @@
+diff --git a/drivers/clocksource/timer-x1.c b/drivers/clocksource/timer-x1.c
+index bbf6d011d..81ac7bb41 100644
+--- a/drivers/clocksource/timer-x1.c
++++ b/drivers/clocksource/timer-x1.c
+@@ -299,7 +299,7 @@ static irqreturn_t timer_interrupt(int irq, void *dev_id)
+ 	return IRQ_NONE;
+ }
+ 
+-static int timer_shutdown(struct clock_event_device *dev)
++static int timer_set_shutdown(struct clock_event_device *dev)
+ {
+ 	struct ky_timer_evt *evt;
+ 	unsigned long flags;
+@@ -524,7 +524,7 @@ int __init ky_timer_setup(struct ky_timer_evt *evt)
+ 	evt->ced.features = CLOCK_EVT_FEAT_ONESHOT;
+ 	evt->ced.rating = 200;
+ 	evt->ced.set_next_event = timer_set_next_event;
+-	evt->ced.set_state_shutdown = timer_shutdown;
++	evt->ced.set_state_shutdown = timer_set_shutdown;
+ 	evt->ced.tick_resume = timer_resume;
+ 	evt->ced.irq = evt->irq;
+ 

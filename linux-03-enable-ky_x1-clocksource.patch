@@ -1,0 +1,13 @@
+diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
+index 585910f65..4fc7809bf 100644
+--- a/drivers/clocksource/Kconfig
++++ b/drivers/clocksource/Kconfig
+@@ -135,7 +135,7 @@ config RDA_TIMER
+ 	  Enables the support for the RDA Micro timer driver.
+ 
+ config KY_X1_TIMER
+-	bool "Ky x1 timer driver" if COMPILE_TEST
++	bool "Ky x1 timer driver"
+ 	select CLKSRC_MMIO
+ 	select TIMER_OF
+ 	help
